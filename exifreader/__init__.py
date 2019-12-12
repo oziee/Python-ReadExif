@@ -141,6 +141,6 @@ class ImageHandler(BaseImageHandler):
 
 if __name__ == "__main__":
     """ This is just for debugging. """
-    image_url = input("Image URL > ")
+    image_file = input("Image file > ")
     handler = ImageHandler()
-    handler.print_exif_from_file(image_url)
+    handler.print_exif_from_files(image_file)
