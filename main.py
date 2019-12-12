@@ -18,10 +18,10 @@ class Main():
     [0] Exit
     """
 
-    @staticmethod
-    def run():
+    @classmethod
+    def run(cls):
 
-        print(Main.menu_txt)
+        print(cls.menu_txt)
         choice = input("Choice > ")
 
         if choice == 1:

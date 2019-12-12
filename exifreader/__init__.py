@@ -11,7 +11,7 @@ import urllib
 from bs4 import BeautifulSoup
 
 
-from exifreader.reader_error import NoExifError, WebsiteDownError, NoImageError
+from reader_error import NoExifError, WebsiteDownError, NoImageError
 
 
 class BaseImageHandler(metaclass=ABCMeta):
@@ -146,4 +146,4 @@ if __name__ == "__main__":
     """ This is just for debugging. """
     image_file = input("Image file > ")
     handler = ImageHandler()
-    handler.print_exif_from_files(image_file)
+    handler.mod_exif_in_file()
