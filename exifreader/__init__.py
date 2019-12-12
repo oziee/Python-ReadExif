@@ -2,10 +2,10 @@ __autor__ = "Julian Huch"
 __versin__ = "1.0"
 
 
+from abc import ABCMeta, abstractclassmethod
 import os
 import exif
 import exifread
-from collections import defaultdict
 import requests
 import urllib
 from bs4 import BeautifulSoup
@@ -14,17 +14,25 @@ from bs4 import BeautifulSoup
 from exifreader.reader_error import NoExifError, WebsiteDownError, NoImageError
 
 
-class BaseImageHandler(object):
+class BaseImageHandler(metaclass=ABCMeta):
     """ Base Class for handle images. """
 
     def __repr__(self):
         return f"{self.__class__.__name__!r}"
+    
+    @abstractclassmethod
     def print_exif_from_files(self):
         pass
+
+    @abstractclassmethod
     def return_exiflist_from_files(self):
         pass
+
+    @abstractclassmethod
     def mod_exif_in_file(self):
         pass
+
+    @abstractclassmethod
     def download_images_from_html(self):
         pass
 
@@ -89,10 +97,6 @@ class ImageHandler(BaseImageHandler):
                 print(ex)
         
         return mret     # returns list with dictionay who contains exif data
-    
-    @staticmethod
-    def mod_exif_from_file(image_file):
-        pass
     
     @staticmethod
     def download_images_from_html(image_url):
