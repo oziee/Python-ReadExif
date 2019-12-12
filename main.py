@@ -10,6 +10,9 @@ class Main():
     """ Main Class """
 
     menu_txt = """
+    EXIFREADER by Julian Huch
+    A wrapper for Python's exif / exifread module
+
     [1] Download Pictures from URL
     [2] Read exif from file
     [0] Exit
