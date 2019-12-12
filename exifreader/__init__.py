@@ -2,7 +2,6 @@ __autor__ = "Julian Huch"
 __versin__ = "1.0"
 
 
-
 import os
 import exif
 import exifread
