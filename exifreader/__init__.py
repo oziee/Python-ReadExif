@@ -11,7 +11,7 @@ import urllib
 from bs4 import BeautifulSoup
 
 
-from reader_error import NoExifError, WebsiteDownError, NoImageError
+from exifreader.reader_error import NoExifError, WebsiteDownError, NoImageError
 
 
 class BaseImageHandler(metaclass=ABCMeta):
