@@ -4,14 +4,14 @@ __versin__ = "1.0"
 
 from abc import ABCMeta, abstractmethod
 import os
-import exif
+# import exif
 import exifread
 import requests
 import urllib
 from bs4 import BeautifulSoup
 
 
-from exifreader.reader_error import NoExifError, WebsiteDownError, NoImageError
+from exifreader.reader_error import NoExifError, WebsiteDownError, NoImageError, FileNotFoundError
 
 
 class BaseImageHandler(metaclass=ABCMeta):
@@ -42,6 +42,7 @@ class ImageHandler(BaseImageHandler):
 
     @staticmethod
     def print_exif_from_files(*args):
+        """ This method directly prints the result to stdout. """
         
         for image_file in args:
 
@@ -52,13 +53,12 @@ class ImageHandler(BaseImageHandler):
                 
                 # Open the file, check if there are exif data, otherwise raise NoExifError.
                 with open(image_file, "rb") as f:
-                    if exif.Image(f).has_exif:
-                        tags = exifread.process_file(f)     # this returns a dictionary contains exif data.
-                        for key, value in tags.items():
-                            print(image_file)
-                            print(f"{key}: {value}")        # print the exif data from the dictionary.
-                    else:
+                    tags = exifread.process_file(f, strict=True)     # this returns a dictionary contains exif data.
+                    if not tags:
                         raise NoExifError(image_file)
+                    print(f"Image: {image_file}")
+                    for key, value in tags.items():
+                        print(f"{key}: {value}")        # print the exif data from the dictionary.
             
             except FileNotFoundError as ex:
                 print(ex)
@@ -69,6 +69,7 @@ class ImageHandler(BaseImageHandler):
     
     @staticmethod
     def return_exiflist_from_files(*args):
+        """ This method returns the found exif data in a list contains a dictionary for every given file. """
 
         mret = []
 
@@ -81,10 +82,10 @@ class ImageHandler(BaseImageHandler):
                 
                 # Open the file, check if there are exif data, otherwise raise NoExifError.
                 with open(image_file, "rb") as f:
-                    if exif.Image(f).has_exif:
-                        mret.append(exifread.process_file(f))    # adds dictionary to mret list.
-                    else:
+                    tags = exifread.process_file(f, strict=True)
+                    if not tags:
                         raise NoExifError(image_file)
+                    mret.append(exifread.process_file(f))    # adds dictionary to mret list.
             
             except FileNotFoundError as ex:
                 print(ex)
@@ -97,10 +98,17 @@ class ImageHandler(BaseImageHandler):
 
     @staticmethod
     def mod_exif_in_file(image_file, *kwargs):
+        """
+        Here we implement the exif module for modify. 
+        But it's not implemented actually.
+        """
+
         print("Not implemented yet!")
     
     @staticmethod
     def download_images_from_html(image_url):
+        """ Download method for simplyfing downloading images from every html page. """
+
         try:
             response = requests.get(image_url)
 
@@ -145,6 +153,7 @@ class ImageHandler(BaseImageHandler):
 
 if __name__ == "__main__":
     """ This is just for debugging. """
+
     image_file = input("Image file > ")
     handler = ImageHandler()
     handler.mod_exif_in_file(image_file)
