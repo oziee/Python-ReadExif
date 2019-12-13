@@ -2,9 +2,10 @@ __autor__ = "Julian Huch"
 __version__ = "1.0"
 
 
-import sys
-from exifreader import *
+from exifreader import sys
+from exifreader import os
 from exifreader import ImageHandler
+from exifreader import HandleFile
 
 
 class BaseMain(object):
@@ -18,29 +19,6 @@ class BaseMain(object):
     [3] Read exif from directory files
     [0] Exit
     """
-
-    def getListOfFiles(self, dirName):
-
-        allFiles = []
-
-        try:
-            if not os.path.isdir(dirName):
-                raise FileNotFoundError(dirName)
-            
-            for file_name in os.listdir(dirName):
-                fullpath = os.path.join(dirName, file_name)
-                if not os.path.isdir(fullpath):
-                    allFiles.append(fullpath)
-        
-        except FileNotFoundError as ex:
-            print(ex)
-            sys.exit(1)
-        except Exception as ex:
-            print(ex)
-            sys.exit(1)
-        
-        else:
-            return allFiles
 
 
 class Main(BaseMain):
@@ -61,7 +39,7 @@ class Main(BaseMain):
         
         elif choice == "3":
             image_dir = input("Image dir > ")
-            ImageHandler.print_exif_from_files(self.getListOfFiles(image_dir))
+            ImageHandler.print_exif_from_files(HandleFile.getListOfFiles(image_dir))
             
         elif choice == "0":
             sys.exit(0)

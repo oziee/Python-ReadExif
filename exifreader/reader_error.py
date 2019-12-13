@@ -2,7 +2,7 @@ __autor__ = "Julian Huch"
 __version__ = "1.0"
 
 
-from colorama import Fore, Style
+from exifreader import Fore, Style
 
 
 class BaseError(Exception):
