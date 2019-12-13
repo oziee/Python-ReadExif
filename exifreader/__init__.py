@@ -2,7 +2,7 @@ __autor__ = "Julian Huch"
 __versin__ = "1.0"
 
 
-from abc import ABCMeta, abstractclassmethod
+from abc import ABCMeta, abstractmethod
 import os
 import exif
 import exifread
@@ -17,22 +17,19 @@ from reader_error import NoExifError, WebsiteDownError, NoImageError
 class BaseImageHandler(metaclass=ABCMeta):
     """ Base Class for handle images. """
 
-    def __repr__(self):
-        return f"{self.__class__.__name__!r}"
-    
-    @abstractclassmethod
+    @abstractmethod
     def print_exif_from_files(self):
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def return_exiflist_from_files(self):
         pass
 
-    @abstractclassmethod
+    @abstractmethod 
     def mod_exif_in_file(self):
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def download_images_from_html(self):
         pass
 
@@ -97,6 +94,10 @@ class ImageHandler(BaseImageHandler):
                 print(ex)
         
         return mret     # returns list with dictionay who contains exif data
+
+    @staticmethod
+    def mod_exif_in_file(image_file, *kwargs):
+        print("Not implemented yet!")
     
     @staticmethod
     def download_images_from_html(image_url):
@@ -146,4 +147,4 @@ if __name__ == "__main__":
     """ This is just for debugging. """
     image_file = input("Image file > ")
     handler = ImageHandler()
-    handler.mod_exif_in_file()
+    handler.mod_exif_in_file(image_file)
