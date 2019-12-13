@@ -71,7 +71,7 @@ class ImageHandler(BaseImageHandler):
     def return_exiflist_from_files(*args):
         """ This method returns the found exif data in a list contains a dictionary for every given file. """
 
-        mret = []
+        exifDictionaryList = []
 
         for image_file in args:
 
@@ -85,7 +85,7 @@ class ImageHandler(BaseImageHandler):
                     tags = exifread.process_file(f, strict=True)
                     if not tags:
                         raise NoExifError(image_file)
-                    mret.append(exifread.process_file(f))    # adds dictionary to mret list.
+                    exifDictionaryList.append([image_file, exifread.process_file(f)])    # adds dictionary to mret list.
             
             except FileNotFoundError as ex:
                 print(ex)
@@ -94,7 +94,7 @@ class ImageHandler(BaseImageHandler):
             except Exception as ex:
                 print(ex)
         
-        return mret     # returns list with dictionay who contains exif data
+        return exifDictionaryList     # returns list with dictionay who contains exif data
 
     @staticmethod
     def mod_exif_in_file(image_file, *kwargs):
