@@ -35,7 +35,7 @@ class Main(BaseMain):
 
         elif choice == "2":
             image_file = input("Image file > ").split()
-            ImageHandler.print_exif_from_files(image_file)
+            ImageHandler.print_exif_from_files(("A", "aowje"), ["awojd", "Hello"], "kawjd")
         
         elif choice == "3":
             image_dir = input("Image dir > ")

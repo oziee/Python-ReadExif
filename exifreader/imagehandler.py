@@ -41,7 +41,20 @@ class ImageHandler(BaseImageHandler):
     def print_exif_from_files(*args):
         """ This method directly prints the result to stdout. """
         
-        for image_file in args:
+        # Check if there are more than one argument in args, if so then unpack all elements from it and append it to a new list.
+        image_list = []
+        if len(args) > 1:
+            for iterable in args:
+                if isinstance(iterable, (list, tuple)):
+                    for element in iterable:
+                        image_list.append(element)
+                else:
+                    image_list.append(iterable)
+        else:
+            image_list = args[0]
+
+        for image_file in image_list:
+            print(image_file)
 
             try:
                 # Check if the file exists, otherwise raise FileNotFoundError.
@@ -68,9 +81,21 @@ class ImageHandler(BaseImageHandler):
     def return_exiflist_from_files(*args):
         """ This method returns the found exif data in a list contains a dictionary for every given file. """
 
-        exifDictionaryList = []
+        exifDictionaryList = []     # new list for method return
 
-        for image_file in args:
+        # Check if there are more than one argument in args, if so then unpack all elements from it and append it to a new list.
+        image_list = []
+        if len(args) > 1:
+            for iterable in args:
+                if isinstance(iterable, (list, tuple)):
+                    for element in iterable:
+                        image_list.append(element)
+                else:
+                    image_list.append(iterable)
+        else:
+            image_list = args[0]
+
+        for image_file in image_list:
 
             try:
                 # Check if the file exists, otherwise raise FileNotFoundError.
