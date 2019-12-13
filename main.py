@@ -24,19 +24,19 @@ class Main():
         print(cls.menu_txt)
         choice = input("Choice > ")
 
-        if choice == 1:
+        if choice == "1":
             image_url = input("Image URL > ")
             ImageHandler.download_images_from_html(image_url)
 
-        elif choice == 2:
+        elif choice == "2":
             image_file = input("Image file > ") 
             ImageHandler.print_exif_from_files(image_file)
 
-        elif choice == 0:
+        elif choice == "0":
             sys.exit(0)
-
+        
         else:
-            Main.run()
+            cls.run()
 
 
 if __name__ == "__main__":
