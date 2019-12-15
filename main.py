@@ -42,6 +42,7 @@ class Main(BaseMain):
             ImageHandler.print_exif_from_files(HandleFile.getListOfFiles(image_dir))
             
         elif choice == "0":
+            print("Goodbye ...\nProgramm Closed!")
             sys.exit(0)
         
         else:
